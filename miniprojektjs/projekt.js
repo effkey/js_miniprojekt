@@ -51,9 +51,19 @@ function submitButton() {
   let tabTotal = [];
   let rowQuantity = 0;
   let razem = 0;
+  let notFull = false;  // zmienna potrzebna do prawidłowego sprawdzania warunków (patrz linijka 60 i 63)
 
   document.forms.myform.onsubmit = function (event) {
-    if(isNaN(document.getElementById("price").value) & isNaN(document.getElementById("quantity").value)) {
+    for (const element of document.getElementsByTagName('form')) {
+      if(element.value == undefined) {
+        notFull = true;
+        alert("Nie podano wszystkich wymaganych wartości!")
+      }
+    }
+    if(notFull) {
+      notFull = false;  // taki zabieg aby ominąć wstawienie pustego wiersza do tabeli
+    }
+    else if(isNaN(document.getElementById("price").value) & isNaN(document.getElementById("quantity").value)) {
       alert("Podana cena i ilość nie są liczbami!")
     }
     else if (isNaN(document.getElementById("price").value)) {
