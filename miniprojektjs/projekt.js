@@ -53,35 +53,47 @@ function submitButton() {
   let razem = 0;
 
   document.forms.myform.onsubmit = function (event) {
-    /// local storage
-    rowQuantity += 1;   // ilość wierszy (indeks)
-    localStorage.setItem("nazwa", document.getElementById("lname").value);
-    localStorage.setItem("ilosc", document.getElementById("quantity").value);
-    localStorage.setItem("cena", document.getElementById("price").value);
-
-    let name = localStorage.getItem("nazwa");
-    let quantity = localStorage.getItem("ilosc");
-    let price = localStorage.getItem("cena");
-
-    // tworzenie nowego obiektu
-    let paragon = new Paragon(name, quantity, price);
-    tablicaObiektow.push(paragon);
-
-    // dodawanie sumy ceny elementow do tabeli razem
-    let sumResult = paragon.countSum();
-    razem = 0;
-    tabTotal.push(sumResult);
-
-    for (let i = 0; i < tabTotal.length; i++) {
-      razem += tabTotal[i];
+    if(isNaN(document.getElementById("price").value) & isNaN(document.getElementById("quantity").value)) {
+      alert("Podana cena i ilość nie są liczbami!")
+    }
+    else if (isNaN(document.getElementById("price").value)) {
+      alert("Podana cena nie jest liczbą!")
+    }
+    else if (isNaN(document.getElementById("quantity").value)) {
+      alert("Podana ilość nie jest liczbą!")
     }
 
-    paragon.addToParagon(razem, rowQuantity);
-    // console.log(paragon);
-    console.log(tabTotal);
-    console.log(tablicaObiektow);
+    else {
+      /// local storage
+      rowQuantity += 1;   // ilość wierszy (indeks)
+      localStorage.setItem("nazwa", document.getElementById("lname").value);
+      localStorage.setItem("ilosc", document.getElementById("quantity").value);
+      localStorage.setItem("cena", document.getElementById("price").value);
 
-    event.preventDefault();
+      let name = localStorage.getItem("nazwa");
+      let quantity = localStorage.getItem("ilosc");
+      let price = localStorage.getItem("cena");
+
+      // tworzenie nowego obiektu
+      let paragon = new Paragon(name, quantity, price);
+      tablicaObiektow.push(paragon);
+
+      // dodawanie sumy ceny elementow do tabeli razem
+      let sumResult = paragon.countSum();
+      razem = 0;
+      tabTotal.push(sumResult);
+
+      for (let i = 0; i < tabTotal.length; i++) {
+        razem += tabTotal[i];
+      }
+
+      paragon.addToParagon(razem, rowQuantity);
+      // console.log(paragon);
+      console.log(tabTotal);
+      console.log(tablicaObiektow);
+
+      event.preventDefault();
+    } 
   };
 
   var buttonUsun = document.getElementById("usun");
