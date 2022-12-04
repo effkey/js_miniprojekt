@@ -10,6 +10,7 @@ class Paragon {
     this.ilosc = ilosc;
     this.cena = cena;
   }
+
   addToParagon(raz, numberofClick) {
     var table = document.getElementById("btab");
     var row = table.insertRow();
@@ -42,40 +43,64 @@ class Paragon {
   }
 }
 
+let liczba = document.getElementById("liczba");
 let tablicaObiektow = [];
 function submitButton() {
+  // var table = document.getElementById('btab');
+
   let tabTotal = [];
-  let numberofClick = 0;
+  let rowQuantity = 0;
   let razem = 0;
+  let notFull = false; // zmienna potrzebna do prawidłowego sprawdzania warunków (patrz linijka 60 i 63)
 
   document.forms.myform.onsubmit = function (event) {
-    /// local storage
-    numberofClick += 1;
-
-    // tworzenie nowego obiektu
-    let paragon = new Paragon(
-      document.getElementById("lname").value,
-      document.getElementById("quantity").value,
-      document.getElementById("price").value
-    );
-    tablicaObiektow.push(paragon);
-
-    // dodawanie sumy ceny elementow do tabeli razem
-    let sumResult = paragon.countSum();
-    razem = 0;
-    tabTotal.push(sumResult);
-
-    for (let i = 0; i < tabTotal.length; i++) {
-      razem += tabTotal[i];
+    for (const element of document.getElementsByTagName("input")) {
+      if (element.value == "") {
+        notFull = true;
+        alert("Nie podano wszystkich wymaganych wartości!");
+        break;
+      }
     }
+    if (notFull) {
+      notFull = false; // taki zabieg aby ominąć wstawienie pustego wiersza do tabeli
+    } else if (
+      isNaN(document.getElementById("price").value) &
+      isNaN(document.getElementById("quantity").value)
+    ) {
+      alert("Podana cena i ilość nie są liczbami!");
+    } else if (isNaN(document.getElementById("price").value)) {
+      alert("Podana cena nie jest liczbą!");
+    } else if (isNaN(document.getElementById("quantity").value)) {
+      alert("Podana ilość nie jest liczbą!");
+    } else {
+      /// local storage
+      rowQuantity += 1; // ilość wierszy (indeks)
 
-    paragon.addToParagon(razem, numberofClick);
-    // console.log(paragon);
-    // console.log(tabTotal);
-    // console.log(tablicaObiektow);
-    localStorage.setItem("tablicaa", JSON.stringify(tablicaObiektow));
+      // tworzenie nowego obiektu
+      let paragon = new Paragon(
+        document.getElementById("lname").value,
+        document.getElementById("quantity").value,
+        document.getElementById("price").value
+      );
+      tablicaObiektow.push(paragon);
 
-    event.preventDefault();
+      // dodawanie sumy ceny elementow do tabeli razem
+      let sumResult = paragon.countSum();
+      razem = 0;
+      tabTotal.push(sumResult);
+
+      for (let i = 0; i < tabTotal.length; i++) {
+        razem += tabTotal[i];
+      }
+
+      paragon.addToParagon(razem, rowQuantity);
+      // // console.log(paragon);
+      // console.log(tabTotal);
+      // console.log(tablicaObiektow);
+
+      localStorage.setItem("tablicaa", JSON.stringify(tablicaObiektow));
+      event.preventDefault();
+    }
   };
 
   var buttonUsun = document.getElementById("usun");
@@ -98,7 +123,6 @@ function submitButton() {
     document.getElementById("razem").innerHTML = razem.toFixed(2) + " zł";
   });
 }
-
 function dodajdopar() {
   let tab = JSON.parse(localStorage.getItem("tablicaa") || "[]");
   console.log(tab);
@@ -122,6 +146,5 @@ function dodajdopar() {
     // this.razem = raz;
   }
 }
-submitButton();
 dodajdopar();
-// localStorage.clear();
+submitButton();
