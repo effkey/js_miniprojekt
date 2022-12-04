@@ -50,8 +50,17 @@ function submitButton() {
 
   let tabTotal = [];
   let rowQuantity = 0;
-  let razem = 0;
   let notFull = false; // zmienna potrzebna do prawidłowego sprawdzania warunków (patrz linijka 60 i 63)
+  let razem = 0;
+
+  if (localStorage.getItem("razem") == "0") {   // tutaj dobrze, bo localstorage przechowuje stringi!!
+    razem = 0;
+  }
+  else {
+    razem = parseInt(localStorage.getItem("razem")) 
+  }
+  localStorage.setItem("razem", 0) // aby zapisywac razem w localstorage
+  
 
   document.forms.myform.onsubmit = function (event) {
     for (const element of document.getElementsByTagName("input")) {
@@ -63,7 +72,8 @@ function submitButton() {
     }
     if (notFull) {
       notFull = false; // taki zabieg aby ominąć wstawienie pustego wiersza do tabeli
-    } else if (
+    } 
+    else if (
       isNaN(document.getElementById("price").value) &
       isNaN(document.getElementById("quantity").value)
     ) {
@@ -86,11 +96,11 @@ function submitButton() {
 
       // dodawanie sumy ceny elementow do tabeli razem
       let sumResult = paragon.countSum();
-      razem = 0;
       tabTotal.push(sumResult);
 
       for (let i = 0; i < tabTotal.length; i++) {
         razem += tabTotal[i];
+        localStorage.setItem("razem", razem)
       }
 
       paragon.addToParagon(razem, rowQuantity);
@@ -116,14 +126,16 @@ function submitButton() {
     tabTotal.pop();
 
     //ustawienie odpowidniej wsartosci 'razem' po usunieciu
-    razem = 0;
+    // razem = 0;
+    localStorage.setItem("razem", 0)
     for (let i = 0; i < tabTotal.length; i++) {
       razem += tabTotal[i];
+      localStorage.setItem("razem", razem)
     }
-    document.getElementById("razem").innerHTML = razem.toFixed(2) + " zł";
+    document.getElementById("razem").innerHTML = localStorage.getItem("razem") + " zł";
   });
 }
-function dodajdopar() {
+function dodajdopar(raz) {
   let tab = JSON.parse(localStorage.getItem("tablicaa") || "[]");
   console.log(tab);
   for (let i = 0; i < tab.length; i++) {
@@ -143,8 +155,11 @@ function dodajdopar() {
     let suma = tab[i].ilosc * tab[i].cena;
     var cellSum = row.insertCell();
     cellSum.innerHTML = suma.toFixed(2) + " zł";
-    // this.razem = raz;
+    this.razem = raz;
+    document.getElementById("razem").innerHTML = localStorage.getItem("razem") + " zł";
   }
 }
-dodajdopar();
+dodajdopar(parseInt(localStorage.getItem("razem")));
 submitButton();
+
+// localStorage.clear()
