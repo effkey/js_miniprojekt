@@ -41,11 +41,6 @@ class Paragon {
     this.suma = this.ilosc * this.cena;
     return this.suma;
   }
-
-  deleteFromParagon(raz) {
-    this.razem = raz;
-    document.getElementById("razem").innerHTML = this.razem.toFixed(2) + " zł";
-  }
 }
 
 let liczba = document.getElementById("liczba");
