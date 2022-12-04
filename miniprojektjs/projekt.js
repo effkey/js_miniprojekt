@@ -49,22 +49,22 @@ function submitButton() {
   // var table = document.getElementById('btab');
 
   let tabTotal = [];
-  let numberofClick = 0;
+  let rowQuantity = 0;
   let razem = 0;
 
   document.forms.myform.onsubmit = function (event) {
     /// local storage
-    numberofClick += 1;
+    rowQuantity += 1;   // ilość wierszy (indeks)
     localStorage.setItem("nazwa", document.getElementById("lname").value);
     localStorage.setItem("ilosc", document.getElementById("quantity").value);
     localStorage.setItem("cena", document.getElementById("price").value);
 
     let name = localStorage.getItem("nazwa");
-    let quantitiy = localStorage.getItem("ilosc");
+    let quantity = localStorage.getItem("ilosc");
     let price = localStorage.getItem("cena");
 
     // tworzenie nowego obiektu
-    let paragon = new Paragon(name, quantitiy, price);
+    let paragon = new Paragon(name, quantity, price);
     tablicaObiektow.push(paragon);
 
     // dodawanie sumy ceny elementow do tabeli razem
@@ -76,7 +76,7 @@ function submitButton() {
       razem += tabTotal[i];
     }
 
-    paragon.addToParagon(razem, numberofClick);
+    paragon.addToParagon(razem, rowQuantity);
     // console.log(paragon);
     console.log(tabTotal);
     console.log(tablicaObiektow);
