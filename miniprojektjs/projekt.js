@@ -54,10 +54,11 @@ function submitButton() {
   let notFull = false;  // zmienna potrzebna do prawidłowego sprawdzania warunków (patrz linijka 60 i 63)
 
   document.forms.myform.onsubmit = function (event) {
-    for (const element of document.getElementsByTagName('form')) {
-      if(element.value == undefined) {
+    for (const element of document.getElementsByTagName('input')) {
+      if(element.value == "") {
         notFull = true;
         alert("Nie podano wszystkich wymaganych wartości!")
+        break
       }
     }
     if(notFull) {
