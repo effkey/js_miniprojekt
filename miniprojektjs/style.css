@@ -43,6 +43,17 @@ tr:nth-child(even) {
     position: absolute;
 }
 
-.myform2 {
+#myform2 {
     position: absolute;
+    margin-top: 40px;
+}
+
+#zatwierdz {
+    position: relative;
+    /* top: 540px; */
+}
+
+#buttonAccept {
+    position: absolute;
+    top: 120px;
 }
