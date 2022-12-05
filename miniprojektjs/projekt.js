@@ -230,6 +230,7 @@ buttonZmien.addEventListener("click", (event) => {
 
   let zamien1 = document.getElementById("zamien1").value;
   let zamien2 = document.getElementById("zamien2").value;
+  console.log(zamien1)
 
   // console.log(zamien1);
   // console.log(zamien2);
