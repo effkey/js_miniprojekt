@@ -8,6 +8,7 @@
     <title>Paragon</title>
   </head>
   <body>
+    <h1 id="Title">Paragon</h1>
     <table id="tab">
       <thead>
         <tr>
@@ -26,24 +27,24 @@
         </tr>
       </tfoot>
     </table>
-    <h1>Nowa pozycja</h1>
+    <h2>Wprowadź nową pozycję:</h2>
     <form name="myform">
       <label for="lname">Nazwa: </label>
-      <input type="text" id="lname" /><br /><br />
+      <input type="text" id="lname" class="inputParagon"/><br /><br />
       <label for="quantity">Ilość: </label>
-      <input type="text" id="quantity" /><br /><br />
+      <input type="text" id="quantity" class="inputParagon"/><br /><br />
       <label for="price">Cena: </label>
-      <input type="text" id="price" /><br /><br />
-      <input type="submit" value="dodaj" />
+      <input type="text" id="price" class="inputParagon"/><br /><br />
+      <input type="submit" value="Dodaj element" id="submitButton"/>
     </form>
     <div id="usun">
-      <button>Usuń</button>
-    </div>
-    <div id="wyczysc">
-      <button>Wyczyść</button>
+      <button id="buttonDelete">Usuń element</button>
     </div>
     <div id="zapisz">
-      <button>zapisz</button>
+      <button id="buttonSave">Zapisz paragon</button>
+    </div>
+    <div id="wyczysc">
+      <button id="buttonClear">Wyczyść paragon</button>
     </div>
     <form name="myform2">
       <label for="zamien1">Podaj w który wiersz chcesz wstawić (LP): </label>

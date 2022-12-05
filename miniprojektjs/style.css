@@ -14,3 +14,30 @@ th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
+#Title {
+    color: whitesmoke;
+    background-color:#dddddd;
+    text-align: center;
+    width: auto;
+    text-shadow: 1px 1px 4px black;
+    border-radius: 25px;
+}
+
+#submitButton {
+    margin-bottom: 20px;
+}
+
+#buttonDelete {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#buttonClear {
+    position: absolute;
+    left: 150px;
+}
+
+#buttonSave {
+    position: absolute;
+}
