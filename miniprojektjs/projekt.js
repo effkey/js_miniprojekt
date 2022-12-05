@@ -169,3 +169,4 @@ function clearLocalStorage() {
 let razemm = dodajdopar();
 submitButton(razemm);
 clearLocalStorage();
+let lala;
