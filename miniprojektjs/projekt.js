@@ -14,6 +14,7 @@ class Paragon {
   addToParagon(raz, numberofClick) {
     var table = document.getElementById("btab");
     var row = table.insertRow();
+    row.setAttribute("id", numberofClick);
     var cellId = row.insertCell();
     cellId.innerHTML = numberofClick;
     this.LP = numberofClick;
@@ -208,6 +209,7 @@ function clearLocalStorage() {
 }
 
 /// odpowiednie zintegorwanie localstorega z zbierana tablica obiektow
+// zbiera wszystkie utworzone obiekty z localstorage
 let tablicaPomocnicza = [];
 var buttonZapisz = document.getElementById("zapisz");
 let numberClick = 0;
@@ -218,6 +220,27 @@ buttonZapisz.addEventListener("click", (event) => {
   }
   localStorage.setItem("tablicaa", JSON.stringify(a));
   console.log(a);
+});
+
+/// zamienianie wartosci po przez inputy
+var buttonZmien = document.getElementById("zatwierdz");
+buttonZmien.addEventListener("click", (event) => {
+  var btab = document.getElementById("btab");
+  table = btab.getElementsByTagName("tr");
+
+  let zamien1 = document.getElementById("zamien1").value;
+  let zamien2 = document.getElementById("zamien2").value;
+
+  // console.log(zamien1);
+  // console.log(zamien2);
+  // console.log(table[zamien1]);
+  // console.log(table[zamien2]);
+
+  var idrow1 = document.getElementById(zamien1);
+  var idrow2 = document.getElementById(zamien2);
+  console.log(idrow1);
+  console.log(idrow2);
+  btab.insertBefore(idrow1, idrow2);
 });
 
 ///tutaj bylem
