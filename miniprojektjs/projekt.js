@@ -129,7 +129,7 @@ function submitButton(razemm, rowQuantity, tablica) {
     }
 
     // jezeli nie ma wierszy ustaw wartosc razem na 0
-    if (razem1 === tabTotal[0]) {
+    if (razem1 === 0) {
       razem1 = 0;
     }
 
