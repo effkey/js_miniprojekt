@@ -244,6 +244,13 @@ buttonZmien.addEventListener("click", (event) => {
   btab.insertBefore(idrow1, idrow2);
 });
 
+var usunWiersz = document.getElementById("buttonDeleteRow");
+usunWiersz.addEventListener("click", (event) => {
+  let usun1 = document.getElementById("usun1").value;
+
+  btab.deleteRow(usun1 - 1);
+});
+
 ///tutaj bylem
 let razemm = zwrocRazem();
 let lp2 = zwrocLP();

@@ -56,3 +56,17 @@ tr:nth-child(even) {
     position: absolute;
     top: 120px;
 }
+
+#myform3 {
+    position: absolute;
+    margin-top: 160px;
+}
+
+#usunWiersz {
+    position: relative;
+}
+
+#buttonDeleteRow {
+    position: absolute;
+    top: 200px;
+}
