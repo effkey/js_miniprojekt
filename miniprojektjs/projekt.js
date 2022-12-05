@@ -129,10 +129,8 @@ function submitButton(razemm, rowQuantity, tablica) {
     }
 
     // jezeli nie ma wierszy ustaw wartosc razem na 0
-    console.log(tabTotal.length);
-    if (tabTotal.length === 0) {
+    if (razem1 === tabTotal[0]) {
       razem1 = 0;
-      document.getElementById("razem").innerHTML = razem1.toFixed(2) + " zł";
     }
 
     localStorage.setItem("tablicaa", JSON.stringify(tablicaObiektow));
