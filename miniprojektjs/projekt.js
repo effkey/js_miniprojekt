@@ -101,7 +101,7 @@ function submitButton(razemm, rowQuantity, tablica) {
       // // console.log(paragon);
       // console.log(tabTotal);
       // console.log(tablicaObiektow);
-      localStorage.setItem("tablicaa", JSON.stringify(tablicaObiektow));
+
       event.preventDefault();
     }
   };
@@ -151,6 +151,7 @@ function submitButton(razemm, rowQuantity, tablica) {
 }
 
 // funkcja dodaje wszystkie wiersze z localstorage do tabeli
+// tutaj bylem
 function dodajdopar() {
   let tab = JSON.parse(localStorage.getItem("tablicaa") || "[]");
   console.log(tab);
@@ -172,16 +173,18 @@ function dodajdopar() {
     var cellSum = row.insertCell();
     cellSum.innerHTML = suma.toFixed(2) + " zł";
   }
+  let razeem = tab[tab.length - 1].razem;
+  document.getElementById("razem").innerHTML = razeem.toFixed(2) + " zł";
+}
 
+function zwrocRazem() {
+  let tab = JSON.parse(localStorage.getItem("tablicaa") || "[]");
   if (tab[tab.length - 1]) {
-    let razeem = tab[tab.length - 1].razem;
-    document.getElementById("razem").innerHTML = razeem.toFixed(2) + " zł";
     return tab[tab.length - 1].razem;
   } else {
     return 0;
   }
 }
-
 //funkcja łączy LP pomiędzy aktualnymi dodawanymi wiarszami a localStorage
 function zwrocLP() {
   let tab = JSON.parse(localStorage.getItem("tablicaa") || "[]");
@@ -205,8 +208,23 @@ function clearLocalStorage() {
   });
 }
 
-let razemm = dodajdopar();
+/// odpowiednie zintegorwanie localstorega z zbierana tablica obiektow
+let tablicaPomocnicza = [];
+var buttonZapisz = document.getElementById("zapisz");
+let numberClick = 0;
+buttonZapisz.addEventListener("click", (event) => {
+  a = JSON.parse(localStorage.getItem("tablicaa")) || [];
+  for (let i = 0; i < tablicaObiektow.length; i++) {
+    a.push(tablicaObiektow[i]);
+  }
+  localStorage.setItem("tablicaa", JSON.stringify(a));
+  console.log(a);
+});
+
+///tutaj bylem
+let razemm = zwrocRazem();
 let lp2 = zwrocLP();
 let tablica = zwrocLocalStoreTab();
 submitButton(razemm, lp2, tablica);
 clearLocalStorage();
+dodajdopar();
