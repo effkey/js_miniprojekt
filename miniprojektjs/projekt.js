@@ -55,7 +55,7 @@ function submitButton(razemm, rowQuantity, tablica) {
   let notFull = false; // zmienna potrzebna do prawidłowego sprawdzania warunków (patrz linijka 60 i 63)
 
   document.forms.myform.onsubmit = function (event) {
-    for (const element of document.getElementsByTagName("input")) {
+    for (const element of document.getElementsByClassName("inputParagon")) {
       if (element.value == "") {
         notFull = true;
         alert("Nie podano wszystkich wymaganych wartości!");
@@ -94,7 +94,6 @@ function submitButton(razemm, rowQuantity, tablica) {
         razem1 += tabTotal[i];
       }
 
-      //
       razem1 += razemm;
 
       paragon.addToParagon(razem1, rowQuantity);
