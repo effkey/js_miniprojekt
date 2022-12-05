@@ -36,8 +36,13 @@ tr:nth-child(even) {
 #buttonClear {
     position: absolute;
     left: 150px;
+    margin-bottom: 20px;
 }
 
 #buttonSave {
+    position: absolute;
+}
+
+.myform2 {
     position: absolute;
 }
