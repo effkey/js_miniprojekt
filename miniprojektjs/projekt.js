@@ -45,22 +45,13 @@ class Paragon {
 
 let liczba = document.getElementById("liczba");
 let tablicaObiektow = [];
-function submitButton() {
+function submitButton(razemm) {
   // var table = document.getElementById('btab');
 
   let tabTotal = [];
   let rowQuantity = 0;
-  let notFull = false; // zmienna potrzebna do prawidłowego sprawdzania warunków (patrz linijka 60 i 63)
   let razem = 0;
-
-  if (localStorage.getItem("razem") == "0") {   // tutaj dobrze, bo localstorage przechowuje stringi!!
-    razem = 0;
-  }
-  else {
-    razem = parseInt(localStorage.getItem("razem")) 
-  }
-  localStorage.setItem("razem", 0) // aby zapisywac razem w localstorage
-  
+  let notFull = false; // zmienna potrzebna do prawidłowego sprawdzania warunków (patrz linijka 60 i 63)
 
   document.forms.myform.onsubmit = function (event) {
     for (const element of document.getElementsByTagName("input")) {
@@ -72,8 +63,7 @@ function submitButton() {
     }
     if (notFull) {
       notFull = false; // taki zabieg aby ominąć wstawienie pustego wiersza do tabeli
-    } 
-    else if (
+    } else if (
       isNaN(document.getElementById("price").value) &
       isNaN(document.getElementById("quantity").value)
     ) {
@@ -96,12 +86,15 @@ function submitButton() {
 
       // dodawanie sumy ceny elementow do tabeli razem
       let sumResult = paragon.countSum();
+      razem = 0;
       tabTotal.push(sumResult);
 
       for (let i = 0; i < tabTotal.length; i++) {
         razem += tabTotal[i];
-        localStorage.setItem("razem", razem)
       }
+
+      //
+      razem += razemm;
 
       paragon.addToParagon(razem, rowQuantity);
       // // console.log(paragon);
@@ -126,16 +119,16 @@ function submitButton() {
     tabTotal.pop();
 
     //ustawienie odpowidniej wsartosci 'razem' po usunieciu
-    // razem = 0;
-    localStorage.setItem("razem", 0)
+    razem = 0;
+    razem += razemm;
     for (let i = 0; i < tabTotal.length; i++) {
       razem += tabTotal[i];
-      localStorage.setItem("razem", razem)
     }
-    document.getElementById("razem").innerHTML = localStorage.getItem("razem") + " zł";
+
+    document.getElementById("razem").innerHTML = razem.toFixed(2) + " zł";
   });
 }
-function dodajdopar(raz) {
+function dodajdopar() {
   let tab = JSON.parse(localStorage.getItem("tablicaa") || "[]");
   console.log(tab);
   for (let i = 0; i < tab.length; i++) {
@@ -155,11 +148,24 @@ function dodajdopar(raz) {
     let suma = tab[i].ilosc * tab[i].cena;
     var cellSum = row.insertCell();
     cellSum.innerHTML = suma.toFixed(2) + " zł";
-    this.razem = raz;
-    document.getElementById("razem").innerHTML = localStorage.getItem("razem") + " zł";
+
+    let razeem = tab[tab.length - 1].razem;
+    document.getElementById("razem").innerHTML = razeem.toFixed(2) + " zł";
+  }
+  if (tab[tab.length - 1]) {
+    return tab[tab.length - 1].razem;
+  } else {
+    return 0;
   }
 }
-dodajdopar(parseInt(localStorage.getItem("razem")));
-submitButton();
 
-// localStorage.clear()
+function clearLocalStorage() {
+  var buttonWyczyscLocal = document.getElementById("wyczysc");
+  buttonWyczyscLocal.addEventListener("click", (event) => {
+    localStorage.clear();
+  });
+}
+
+let razemm = dodajdopar();
+submitButton(razemm);
+clearLocalStorage();
